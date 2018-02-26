@@ -1,0 +1,4 @@
+http://www.eshop.unicom.local<<ADD啊哈啊哈>>http://www.eshop.unicom.local:8888/mshop
+http://www.eshop.unicom.local:8780/wshop/ws
+http://202.99.45.118/pshop/login/index.jsf
+http://pic.eshop.unicom.local/test.jpg

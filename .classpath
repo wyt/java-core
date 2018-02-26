@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="itcast/thread"/>
+	<classpathentry kind="src" path="00.tuning"/>
+	<classpathentry kind="src" path="01. grammar"/>
+	<classpathentry kind="src" path="02. algorithm"/>
+	<classpathentry kind="src" path="03. exception"/>
+	<classpathentry kind="src" path="04. jcf"/>
+	<classpathentry kind="src" path="05. io"/>
+	<classpathentry kind="src" path="06. multithread"/>
+	<classpathentry kind="src" path="07. socket"/>
+	<classpathentry kind="src" path="08. gui"/>
+	<classpathentry kind="src" path="09. enumeration"/>
+	<classpathentry kind="src" path="10. annotation"/>
+	<classpathentry kind="src" path="11. generic"/>
+	<classpathentry kind="src" path="12. reflection"/>
+	<classpathentry kind="src" path="13. classLoad"/>
+	<classpathentry kind="src" path="14. gc"/>
+	<classpathentry kind="src" path="15. xml"/>
+	<classpathentry kind="src" path="16. event"/>
+	<classpathentry kind="src" path="17. aop"/>
+	<classpathentry kind="src" path="18. lambda"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/classes" path="src/main/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
