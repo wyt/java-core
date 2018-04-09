@@ -16,21 +16,16 @@ public class L05_ThreadScopeShareData {
   private static Map<Thread, Integer> threadData = new HashMap<Thread, Integer>();
 
   public static void main(String[] args) {
-
     for (int i = 0; i < 2; i++) {
-      new Thread(new Runnable() {
-        @Override
-        public void run() {
+      new Thread(() -> {
+        /** 线程范围内的变量 data **/
+        int data = new Random().nextInt();
+        System.out.println(Thread.currentThread().getName() + " has put data :" + data);
+        threadData.put(Thread.currentThread(), data);
 
-          /** 线程范围内的变量 data **/
-          int data = new Random().nextInt();
-          System.out.println(Thread.currentThread().getName() + " has put data :" + data);
-          threadData.put(Thread.currentThread(), data);
-
-          /** 以下两段模块需要共享data **/
-          new A().get();
-          new B().get();
-        }
+        /** 以下两段模块需要共享data **/
+        new A().get();
+        new B().get();
       }).start();
     }
   }
