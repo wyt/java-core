@@ -11,24 +11,24 @@ package org.wangyt.javase.multithread03.join;
  * 
  */
 class DaemonThread extends Thread {
-	
-	public DaemonThread(String name) {
-		super(name);
-	}
 
-	public void run() {
-		// 因为是精灵线程，实际的执行结果大大小于10000
-		for (int i = 0; i < 10000; i++) {
-			System.out.println(getName() + " " + i);
-		}
-	}
+  public DaemonThread(String name) {
+    super(name);
+  }
 
-	public static void main(String[] args) {
-		Thread t = new DaemonThread("Thread-daemon");
-		t.setDaemon(true); // 将t设置为守护线程、
-		t.start();
-		for (int i = 0; i < 2; i++) {
-			System.out.println(Thread.currentThread().getName() + " " + i);
-		}
-	}
+  public void run() {
+    // 因为是精灵线程，实际的执行结果小于10000
+    for (int i = 0; i < 10000; i++) {
+      System.out.println(getName() + " " + i);
+    }
+  }
+
+  public static void main(String[] args) {
+    Thread t = new DaemonThread("Thread-daemon");
+    t.setDaemon(true); // 将t设置为守护线程、
+    t.start();
+    for (int i = 0; i < 2; i++) {
+      System.out.println(Thread.currentThread().getName() + " " + i);
+    }
+  }
 }
