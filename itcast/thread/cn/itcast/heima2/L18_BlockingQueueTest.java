@@ -22,49 +22,46 @@ public class L18_BlockingQueueTest {
     final BlockingQueue<Double> queue = new ArrayBlockingQueue<Double>(3, false);
 
     for (int i = 0; i < 2; i++) {
-      new Thread() {
-        public void run() {
-          while (true) {
-            try {
-              Thread.sleep((long) (Math.random() * 1000));
-              Double data = Math.random();
-
-              // put添加一个元素，如果队列满，则阻塞
-              // queue.put(data);
-
-              // offer添加一个元素并返回true，如果队列已满，则返回false
-              boolean r = queue.offer(data, 1000, TimeUnit.MILLISECONDS);
-              // boolean r = queue.offer(data);
-              System.out.println(Thread.currentThread().getName() + " have put data " + data + " "
-                  + r + ", the Queue size is " + queue.size());
-            } catch (InterruptedException e) {
-              e.printStackTrace();
-            }
-          }
-        }
-      }.start();
-    }
-
-    new Thread() {
-      public void run() {
+      new Thread(() -> {
         while (true) {
           try {
-            // 将此处的睡眠时间分别改为100和1000，观察运行结果
-            Thread.sleep(1000);
+            // Thread.sleep((long) (Math.random() * 1000));
+            TimeUnit.MILLISECONDS.sleep((long) (Math.random() * 1000));
+            Double data = Math.random();
 
-            // 移除并返回队列头部的元素，如果队列为空，则阻塞
-            // Double result = queue.take();
+            // put添加一个元素，如果队列满，则阻塞
+            // queue.put(data);
 
-            // 移除并返问队列头部的元素，如果队列为空，则返回null
-            Double result = queue.poll();
-
-            System.out.println(Thread.currentThread().getName() + " have take data " + result
+            // offer添加一个元素并返回true，如果队列已满，则返回false
+            boolean r = queue.offer(data, 1000, TimeUnit.MILLISECONDS);
+            // boolean r = queue.offer(data);
+            System.out.println(Thread.currentThread().getName() + " have put data " + data + " " + r
                 + ", the Queue size is " + queue.size());
           } catch (InterruptedException e) {
             e.printStackTrace();
           }
         }
+      }).start();
+    }
+
+    new Thread(() -> {
+      while (true) {
+        try {
+          // 将此处的睡眠时间分别改为100和1000，观察运行结果
+          Thread.sleep(1000);
+
+          // 移除并返回队列头部的元素，如果队列为空，则阻塞
+          // Double result = queue.take();
+
+          // 移除并返问队列头部的元素，如果队列为空，则返回null
+          Double result = queue.poll();
+
+          System.out.println(Thread.currentThread().getName() + " have take data " + result
+              + ", the Queue size is " + queue.size());
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
       }
-    }.start();
+    }).start();
   }
 }
