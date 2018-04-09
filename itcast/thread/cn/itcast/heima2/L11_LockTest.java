@@ -11,74 +11,74 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class L11_LockTest {
 
-	public static void main(String[] args) {
-		new L11_LockTest().init();
-	}
+  public static void main(String[] args) {
+    new L11_LockTest().init();
+  }
 
-	private void init() {
-		final Outputer outputer = new Outputer();
+  private void init() {
+    final Outputer outputer = new Outputer();
 
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					outputer.output("zhangxiaoxiang");
-				}
-			}
-		}).start();
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        while (true) {
+          try {
+            Thread.sleep(10);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          outputer.output("zhangxiaoxiang");
+        }
+      }
+    }).start();
 
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(10);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					outputer.output("lihuoming");
-				}
-			}
-		}).start();
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        while (true) {
+          try {
+            Thread.sleep(10);
+          } catch (InterruptedException e) {
+            e.printStackTrace();
+          }
+          outputer.output("lihuoming");
+        }
+      }
+    }).start();
 
-	}
+  }
 
-	static class Outputer {
+  static class Outputer {
 
-		Lock lock = new ReentrantLock();
+    Lock lock = new ReentrantLock();
 
-		public void output(String name) {
-			int len = name.length();
-			lock.lock();
-			try {
-				for (int i = 0; i < len; i++) {
-					System.out.print(name.charAt(i));
-				}
-				System.out.println();
-			} finally {
-				lock.unlock();
-			}
-		}
+    public void output(String name) {
+      int len = name.length();
+      lock.lock();
+      try {
+        for (int i = 0; i < len; i++) {
+          System.out.print(name.charAt(i));
+        }
+        System.out.println();
+      } finally {
+        lock.unlock();
+      }
+    }
 
-		public synchronized void output2(String name) {
-			int len = name.length();
-			for (int i = 0; i < len; i++) {
-				System.out.print(name.charAt(i));
-			}
-			System.out.println();
-		}
+    public synchronized void output2(String name) {
+      int len = name.length();
+      for (int i = 0; i < len; i++) {
+        System.out.print(name.charAt(i));
+      }
+      System.out.println();
+    }
 
-		public static synchronized void output3(String name) {
-			int len = name.length();
-			for (int i = 0; i < len; i++) {
-				System.out.print(name.charAt(i));
-			}
-			System.out.println();
-		}
-	}
+    public static synchronized void output3(String name) {
+      int len = name.length();
+      for (int i = 0; i < len; i++) {
+        System.out.print(name.charAt(i));
+      }
+      System.out.println();
+    }
+  }
 }
