@@ -14,20 +14,13 @@ public class L04_TraditionalThreadCommunication {
 
   public static void main(String[] args) {
 
-    /**
-     * final 修饰变量business 通过禁止cpu的指令集重排序,来提供现成的可见性,来保证对象的安全发布,防止对象引用被其他线程在对象被完全构造完成前拿到并使用.
-     * http://www.cnblogs.com/alexlo/p/4971229.html
-     * 
-     */
+    // final变量说明[http://www.cnblogs.com/alexlo/p/4971229.html]
     final Business business = new Business();
 
     /** 子线程 **/
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        for (int i = 1; i <= 50; i++) {
-          business.sub(i);
-        }
+    new Thread(() -> {
+      for (int i = 1; i <= 50; i++) {
+        business.sub(i);
       }
     }).start();
 
