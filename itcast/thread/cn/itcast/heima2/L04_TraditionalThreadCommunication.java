@@ -12,70 +12,70 @@ package cn.itcast.heima2;
  */
 public class L04_TraditionalThreadCommunication {
 
-	public static void main(String[] args) {
+  public static void main(String[] args) {
 
-		/**
-		 * final 修饰变量business
-		 * 通过禁止cpu的指令集重排序,来提供现成的可见性,来保证对象的安全发布,防止对象引用被其他线程在对象被完全构造完成前拿到并使用.
-		 * http://www.cnblogs.com/alexlo/p/4971229.html
-		 * 
-		 */
-		final Business business = new Business();
+    /**
+     * final 修饰变量business 通过禁止cpu的指令集重排序,来提供现成的可见性,来保证对象的安全发布,防止对象引用被其他线程在对象被完全构造完成前拿到并使用.
+     * http://www.cnblogs.com/alexlo/p/4971229.html
+     * 
+     */
+    final Business business = new Business();
 
-		/** 子线程 **/
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				for (int i = 1; i <= 50; i++) {
-					business.sub(i);
-				}
-			}
-		}).start();
+    /** 子线程 **/
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        for (int i = 1; i <= 50; i++) {
+          business.sub(i);
+        }
+      }
+    }).start();
 
-		/** 主线程 **/
-		for (int i = 1; i <= 50; i++) {
-			business.main(i);
-		}
-	}
+    /** 主线程 **/
+    for (int i = 1; i <= 50; i++) {
+      business.main(i);
+    }
+  }
 }
+
 
 class Business {
 
-	/** 标记 **/
-	private boolean bShouldSub = true;
+  /** 标记 **/
+  private boolean bShouldSub = true;
 
-	public synchronized void sub(int i) {
-		while (!bShouldSub) // 此处用的是while而不是if，为了防止线程虚假唤醒
-		{
-			try {
-				this.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
+  public synchronized void sub(int i) {
+    while (!bShouldSub) // 此处用的是while而不是if，为了防止线程虚假唤醒
+    {
+      try {
+        this.wait();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
 
-		for (int j = 1; j <= 10; j++) {
-			System.out.println("sub thread sequence of " + j + " ,loop of " + i);
-		}
+    for (int j = 1; j <= 10; j++) {
+      System.out.println("sub thread sequence of " + j + " ,loop of " + i);
+    }
 
-		bShouldSub = false; // 退出该方法后，如果子线程继续执行，则让进入while等待。
-		this.notify(); // 通知主线程执行
-	}
+    bShouldSub = false; // 退出该方法后，如果子线程继续执行，则让进入while等待。
+    this.notify(); // 通知主线程执行
+  }
 
-	public synchronized void main(int i) {
-		while (bShouldSub) {
-			try {
-				this.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		for (int j = 1; j <= 100; j++) {
-			System.out.println("main thread sequence of " + j + " ,loop of " + i);
-		}
+  public synchronized void main(int i) {
+    while (bShouldSub) {
+      try {
+        this.wait();
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+    for (int j = 1; j <= 100; j++) {
+      System.out.println("main thread sequence of " + j + " ,loop of " + i);
+    }
 
-		bShouldSub = true; // 退出该方法后，如果主线程继续执行，则进入while等待
-		this.notify(); // 通知子线程执行
-	}
+    bShouldSub = true; // 退出该方法后，如果主线程继续执行，则进入while等待
+    this.notify(); // 通知子线程执行
+  }
 
 }
