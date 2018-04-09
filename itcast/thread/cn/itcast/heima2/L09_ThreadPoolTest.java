@@ -21,6 +21,8 @@ public class L09_ThreadPoolTest {
 
     for (int i = 1; i <= 10; i++) {
       final int task = i;
+
+      // 提交任务,ExecutorService分配线程执行.
       threadPool.execute(() -> {
         for (int j = 1; j <= 10; j++) {
           try {

@@ -49,6 +49,7 @@ public class L06_ThreadLocalTest {
   }
 }
 
+
 class MyThreadScopeData {
 
   private MyThreadScopeData() {}

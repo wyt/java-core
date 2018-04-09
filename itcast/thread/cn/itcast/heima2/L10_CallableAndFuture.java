@@ -15,9 +15,11 @@ import java.util.concurrent.Future;
  * @author WANG YONG TAO
  *
  */
+@SuppressWarnings("all")
 public class L10_CallableAndFuture {
 
   public static void main(String[] args) {
+
     /** 0. 创建一个线程池 **/
     ExecutorService threadPool = Executors.newSingleThreadExecutor();
 
@@ -27,6 +29,11 @@ public class L10_CallableAndFuture {
         Thread.sleep(2000);
         return "hello";
       };
+    });
+
+    Future<String> futureLambda = threadPool.submit(() -> {
+      Thread.sleep(2000);
+      return "hello";
     });
 
     System.out.println("等待结果");
