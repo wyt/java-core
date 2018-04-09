@@ -24,49 +24,42 @@ import java.util.concurrent.Executors;
  */
 public class L16_CountdownLatchTest {
 
-	public static void main(String[] args) throws Exception {
-		ExecutorService service = Executors.newCachedThreadPool();
-		
-		final CountDownLatch cdOrder = new CountDownLatch(1);
-		final CountDownLatch cdAnswer = new CountDownLatch(3);
+  public static void main(String[] args) throws Exception {
+    ExecutorService service = Executors.newCachedThreadPool();
 
-		for (int i = 0; i < 3; i++) {
-			Runnable runnable = new Runnable() {
-				public void run() {
-					try {
-						System.out.println("线程"
-								+ Thread.currentThread().getName() + "正准备接受命令");
-						cdOrder.await();
+    final CountDownLatch cdOrder = new CountDownLatch(1);
+    final CountDownLatch cdAnswer = new CountDownLatch(3);
 
-						System.out.println("线程"
-								+ Thread.currentThread().getName() + "已接受命令");
-						Thread.sleep((long) (Math.random() * 10000));
+    for (int i = 0; i < 3; i++) {
+      Runnable runnable = new Runnable() {
+        public void run() {
+          try {
+            System.out.println("线程" + Thread.currentThread().getName() + "正准备接受命令");
+            cdOrder.await();
 
-						System.out
-								.println("线程"
-										+ Thread.currentThread().getName()
-										+ "回应命令处理结果");
-						cdAnswer.countDown();
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			};
-			service.execute(runnable);
-		}
+            System.out.println("线程" + Thread.currentThread().getName() + "已接受命令");
+            Thread.sleep((long) (Math.random() * 10000));
 
-		Thread.sleep((long) (Math.random() * 10000));
+            System.out.println("线程" + Thread.currentThread().getName() + "回应命令处理结果");
+            cdAnswer.countDown();
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+      };
+      service.execute(runnable);
+    }
 
-		System.out.println("线程" + Thread.currentThread().getName() + "即将发布命令");
-		cdOrder.countDown();
+    Thread.sleep((long) (Math.random() * 10000));
 
-		System.out.println("线程" + Thread.currentThread().getName()
-				+ "已发送命令，正在等待结果");
-		cdAnswer.await();
+    System.out.println("线程" + Thread.currentThread().getName() + "即将发布命令");
+    cdOrder.countDown();
 
-		System.out.println("线程" + Thread.currentThread().getName()
-				+ "已收到所有响应结果");
+    System.out.println("线程" + Thread.currentThread().getName() + "已发送命令，正在等待结果");
+    cdAnswer.await();
 
-		service.shutdown();
-	}
+    System.out.println("线程" + Thread.currentThread().getName() + "已收到所有响应结果");
+
+    service.shutdown();
+  }
 }

@@ -19,39 +19,39 @@ import java.util.concurrent.Executors;
  *
  */
 public class L17_ExchangerTest01 {
-    private static final Exchanger<String> exgr = new Exchanger<String>();
-    private static ExecutorService threadPool = Executors.newFixedThreadPool(2);
+  private static final Exchanger<String> exgr = new Exchanger<String>();
+  private static ExecutorService threadPool = Executors.newFixedThreadPool(2);
 
-    public static void main(String[] args) {
-        threadPool.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // A录入银行流水数据
-                    String A = "$4123.0234";
-                    exgr.exchange(A);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+  public static void main(String[] args) {
+    threadPool.execute(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          // A录入银行流水数据
+          String A = "$4123.0234";
+          exgr.exchange(A);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    });
 
-        threadPool.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // B录入银行流水数据
-                    String B = "$4123.0234";
-                    String A = exgr.exchange(B);
+    threadPool.execute(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          // B录入银行流水数据
+          String B = "$4123.0234";
+          String A = exgr.exchange(B);
 
-                    System.out.println("A和B数据是否一致：" + A.equals(B));
-                    System.out.println("A录入的是：" + A + ",B录入是：" + B);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+          System.out.println("A和B数据是否一致：" + A.equals(B));
+          System.out.println("A录入的是：" + A + ",B录入是：" + B);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
+        }
+      }
+    });
 
-        threadPool.shutdown();
-    }
+    threadPool.shutdown();
+  }
 }
