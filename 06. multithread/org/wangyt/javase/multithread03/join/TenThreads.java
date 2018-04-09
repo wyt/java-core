@@ -1,4 +1,4 @@
-package org.wangyt.javase.multithread01.GT;
+package org.wangyt.javase.multithread03.join;
 
 /**
  * 求二位数组最大值.
@@ -56,6 +56,5 @@ public class TenThreads {
         max = Math.max(max, ourArray[i]);
       }
     }
-    
   }
 }
