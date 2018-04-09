@@ -13,29 +13,29 @@ package org.wangyt.javase.multithread02.halt;
  * 
  */
 public class TestYield extends Thread {
-	public TestYield() {
-	}
 
-	public TestYield(String name) {
-		super(name);
-	}
+  public TestYield() {}
 
-	@Override
-	public void run() {
-		for (int i = 0; i < 50; i++) {
-			System.out.println(getName() + "\t" + i);
-			if (i == 20) {
-				Thread.yield();
-			}
-		}
-	}
+  public TestYield(String name) {
+    super(name);
+  }
 
-	public static void main(String[] args) {
-		Thread t1 = new TestYield("high-thread");
-		Thread t2 = new TestYield("low-thread");
-		t1.setPriority(Thread.MAX_PRIORITY);
-		t2.setPriority(Thread.MIN_PRIORITY);
-		t1.start();
-		t2.start();
-	}
+  @Override
+  public void run() {
+    for (int i = 0; i < 10; i++) {
+      System.out.println(getName() + "\t" + i);
+      if (i == 20) {
+        Thread.yield();
+      }
+    }
+  }
+
+  public static void main(String[] args) {
+    Thread t1 = new TestYield("high-thread");
+    Thread t2 = new TestYield("low-thread");
+    t1.setPriority(Thread.NORM_PRIORITY);
+    t2.setPriority(Thread.NORM_PRIORITY);
+    t1.start();
+    t2.start();
+  }
 }
