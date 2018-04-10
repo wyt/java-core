@@ -1,16 +1,15 @@
 package cn.itcast.heima2;
 
-import java.util.Random;
 import java.util.concurrent.Callable;
-import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
- * 得到线程返回的结果
+ * 得到线程返回的结果,
+ * 
+ * Callable<Void>表示无返回值的任务.
  * 
  * @author WANG YONG TAO
  *
@@ -31,46 +30,17 @@ public class L10_CallableAndFuture {
       };
     });
 
-    System.out.println("等待结果");
+    System.out.print("结果为: ");
 
     try {
-      /** 2. 得到线程返回的结果 **/
-      System.out.println("拿到结果：" + future.get());
-      System.out.println("can you see me?");
+      String result = future.get();
+      System.out.print(result);
     } catch (InterruptedException e) {
       e.printStackTrace();
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (ExecutionException e) {
+      throw new RuntimeException(e.getCause());
     }
 
-    /** 批量的任务 **/
-    ExecutorService threadPool2 = Executors.newFixedThreadPool(10);
-    CompletionService<Integer> completionService =
-        new ExecutorCompletionService<Integer>(threadPool2);
-
-    for (int i = 1; i <= 10; i++) {
-      final int seq = i;
-      completionService.submit(new Callable<Integer>() {
-        @Override
-        public Integer call() throws Exception {
-          int sleepTime = new Random().nextInt(5000);
-          System.out.println("sleepTime: " + sleepTime + " ");
-          Thread.sleep(sleepTime);
-          return seq;
-        }
-      });
-    }
-
-    for (int i = 0; i < 10; i++) {
-      try {
-        /** take阻塞，poll非阻塞 **/
-        System.out.println(completionService.take().get());
-        // System.out.println(completionService.poll().get());
-      } catch (InterruptedException e) {
-        e.printStackTrace();
-      } catch (ExecutionException e) {
-        e.printStackTrace();
-      }
-    }
+    threadPool.shutdown();
   }
 }
