@@ -31,11 +31,6 @@ public class L10_CallableAndFuture {
       };
     });
 
-    Future<String> futureLambda = threadPool.submit(() -> {
-      Thread.sleep(2000);
-      return "hello";
-    });
-
     System.out.println("等待结果");
 
     try {
