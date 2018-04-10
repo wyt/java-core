@@ -7,10 +7,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
- * 得到线程返回的结果
+ * CompletionService批量任务.
  * 
  * @author WANG YONG TAO
  *
@@ -20,33 +19,10 @@ public class L10_CompletionService {
 
   public static void main(String[] args) {
 
-    /** 0. 创建一个线程池 **/
-    ExecutorService threadPool = Executors.newSingleThreadExecutor();
+    ExecutorService threadPool = Executors.newFixedThreadPool(10);
 
-    /** 1. 提交一个Callable线程任务 **/
-    Future<String> future = threadPool.submit(new Callable<String>() {
-      public String call() throws Exception {
-        Thread.sleep(2000);
-        return "hello";
-      };
-    });
-
-    System.out.println("等待结果");
-
-    try {
-      /** 2. 得到线程返回的结果 **/
-      System.out.println("拿到结果：" + future.get());
-      System.out.println("can you see me?");
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-
-    /** 批量的任务 **/
-    ExecutorService threadPool2 = Executors.newFixedThreadPool(10);
     CompletionService<Integer> completionService =
-        new ExecutorCompletionService<Integer>(threadPool2);
+        new ExecutorCompletionService<Integer>(threadPool);
 
     for (int i = 1; i <= 10; i++) {
       final int seq = i;
