@@ -11,6 +11,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  *
  */
 public class L12_ReadWriteLockTest {
+  
   public static void main(String[] args) {
     final Queue3 q3 = new Queue3();
 

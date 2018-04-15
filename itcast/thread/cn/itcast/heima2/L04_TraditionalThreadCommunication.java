@@ -7,8 +7,6 @@ package cn.itcast.heima2;
  * 
  * wait() notify()
  * 
- * @author Yongtao Wang (<a href="mailto:yongtao.wang@outlook.com">yongtao.wang@outlook.com</a>)
- *
  */
 public class L04_TraditionalThreadCommunication {
 

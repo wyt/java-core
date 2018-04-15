@@ -16,33 +16,28 @@ public class L11_LockTest {
   }
 
   private void init() {
+
     final Outputer outputer = new Outputer();
 
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        while (true) {
-          try {
-            Thread.sleep(10);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-          outputer.output("zhangxiaoxiang");
+    new Thread(() -> {
+      while (true) {
+        try {
+          Thread.sleep(10);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
+        outputer.output("zhangxiaoxiang");
       }
     }).start();
 
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        while (true) {
-          try {
-            Thread.sleep(10);
-          } catch (InterruptedException e) {
-            e.printStackTrace();
-          }
-          outputer.output("lihuoming");
+    new Thread(() -> {
+      while (true) {
+        try {
+          Thread.sleep(10);
+        } catch (InterruptedException e) {
+          e.printStackTrace();
         }
+        outputer.output("lihuoming");
       }
     }).start();
 
@@ -50,6 +45,7 @@ public class L11_LockTest {
 
   static class Outputer {
 
+    // 使用重入锁
     Lock lock = new ReentrantLock();
 
     public void output(String name) {
@@ -81,4 +77,5 @@ public class L11_LockTest {
       System.out.println();
     }
   }
+
 }
