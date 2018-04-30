@@ -8,8 +8,8 @@ public class ProcessDemo {
     try {
       // create a new process
       System.out.println("Creating Process...");
-      Process p = Runtime.getRuntime().exec("ping  127.0.0.1");
-//      Process p = Runtime.getRuntime().exec("chrome.exe");
+//      Process p = Runtime.getRuntime().exec("ping  127.0.0.1");
+      Process p = Runtime.getRuntime().exec("notepad.exe");
 
       // get the input stream of the process and print it
       InputStream in = p.getInputStream();
