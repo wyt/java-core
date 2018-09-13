@@ -35,6 +35,7 @@ public class JoinThread extends Thread {
          * 
          * 体现在输出结果上就是："main 20" 及以后的一定在 "被join的线程 199" 之后。
          */
+        // join 中有wait，下面的代码是在主线程中，join引起执行此段代码的线程阻塞。
         jt.join();
       }
       System.out.println(Thread.currentThread().getName() + " " + i);
