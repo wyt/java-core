@@ -13,11 +13,10 @@ public class ReadFile {
   public static void main(String[] args) throws IOException {
     try (
         // 创建文件输入流
-        FileInputStream fis = new FileInputStream("05-01. nio/org/wangyt/javase/nio/ReadFile.java");
+        FileInputStream fis = new FileInputStream("05. io/org/wangyt/javase/nio/ReadFile.java");
 
         // 创建一个FileChannel
-        FileChannel fcin = fis.getChannel()
-    ){
+        FileChannel fcin = fis.getChannel()) {
       // 定义一个ByteBuffer对象，用于重复取水
       ByteBuffer bbuff = ByteBuffer.allocate(64);
       // 将FileChannel中数据放入ByteBuffer中
